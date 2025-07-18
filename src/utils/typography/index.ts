@@ -58,6 +58,7 @@ const Typography = {
   textSize16: { fontSize: 16 },
   textSize24: { fontSize: 24 },
   textSize12: { fontSize: 12 },
+  textSize14: { fontSize: 14 },
   textSize10: { fontSize: 10 },
   textSize8: { fontSize: 8 },
   textSize6: { fontSize: 6 },
