@@ -1,14 +1,7 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-  StyleProp,
-  StyleSheet,
-  ViewStyle,
-} from 'react-native';
+import { SafeAreaView, StatusBar, StyleProp, StyleSheet, ViewStyle } from 'react-native';
 
 import { useColor } from '@src/context';
-import { Palette } from '@src/utils';
 
 export type BaseLayoutProps = React.PropsWithChildren & {
   style?: StyleProp<ViewStyle>;
@@ -16,7 +9,7 @@ export type BaseLayoutProps = React.PropsWithChildren & {
 
 export const BaseLayout = React.memo(({ children, style }: BaseLayoutProps) => {
   const { appTheme, color } = useColor();
-  const styles = baseLayoutStyles(color);
+  const styles = baseLayoutStyles();
 
   return (
     <SafeAreaView style={[styles.safeAreaStyle, style]}>
@@ -29,10 +22,10 @@ export const BaseLayout = React.memo(({ children, style }: BaseLayoutProps) => {
   );
 });
 
-export const baseLayoutStyles = ({ backgroundColor }: Palette) =>
+export const baseLayoutStyles = () =>
   StyleSheet.create({
     safeAreaStyle: {
-      backgroundColor: backgroundColor,
+      backgroundColor: '#FFFFFF',
       flex: 1,
     },
   });

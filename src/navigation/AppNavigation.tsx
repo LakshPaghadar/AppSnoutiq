@@ -7,20 +7,14 @@ import {
 } from '@react-navigation/native-stack';
 import { useSelector } from 'react-redux';
 
-import {
-  LoginScreen,
-  NetworkLoggerScreen,
-  NewsDetailScreen,
-  NewsListScreen,
-  SettingScreen,
-} from '@src/screens';
 import { isForceUpdate } from '@src/store';
 
 import { NavStackParams, Screen } from './appNavigation.type';
-import { ForUpdateStack } from './ForceupdateStack';
+import SplashScreen from '@src/screens/NewsList/SplashScreen';
+import OnboardingScreen from '@src/screens/Onboarding/OnboardingScreen';
+import SelectRoleScreen from '@src/screens/SelectRole/SelectRoleScreen';
 
-export const navigationRef =
-  React.createRef<NavigationContainerRef<NavStackParams>>();
+export const navigationRef = React.createRef<NavigationContainerRef<NavStackParams>>();
 
 const Stack = createNativeStackNavigator<NavStackParams>();
 
@@ -30,29 +24,13 @@ const screenOptions: NativeStackNavigationOptions = {
 };
 
 export const AppNavigation = () => {
-  const isForceUpdateApp = useSelector(isForceUpdate);
-
   return (
     <>
-      {isForceUpdateApp ? (
-        <ForUpdateStack />
-      ) : (
-        <Stack.Navigator screenOptions={screenOptions}>
-          <Stack.Screen name={Screen.NEWS_LIST} component={NewsListScreen} />
-          <Stack.Screen
-            name={Screen.NEWS_DETAIL}
-            component={NewsDetailScreen}
-          />
-          <Stack.Screen name={Screen.SETTING} component={SettingScreen} />
-          <Stack.Screen name={Screen.LOGIN} component={LoginScreen} />
-          {__DEV__ && (
-            <Stack.Screen
-              name={Screen.NETWORK_CHECK}
-              component={NetworkLoggerScreen}
-            />
-          )}
-        </Stack.Navigator>
-      )}
+      <Stack.Navigator screenOptions={screenOptions}>
+        <Stack.Screen name={Screen.NEWS_LIST} component={SplashScreen} />
+        <Stack.Screen name={Screen.ONBOARDING} component={OnboardingScreen} />
+        <Stack.Screen name={Screen.SELECT_ROLE} component={SelectRoleScreen} />
+      </Stack.Navigator>
     </>
   );
 };
