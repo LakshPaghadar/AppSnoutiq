@@ -1,10 +1,19 @@
 import { MMKV } from 'react-native-mmkv';
 import { Storage as ReduxStorage } from 'redux-persist';
 
-import type { STORAGES_KEY } from '@src/constants';
 import { logger } from '@src/utils';
 
 export type dataStoreType = 'string' | 'boolean' | 'number' | 'object';
+
+export enum StorageKeys {
+  APP_THEME = 'APP_THEME',
+  APP_LANGUAGE = 'APP_LANGUAGE',
+  FIRST_LAUNCH = 'FIRST_LAUNCH',
+  PROFILE_DATA = 'PROFILE_DATA',
+  SELECTED_ROLE = 'SELECTED_ROLE',
+}
+
+export type STORAGES_KEY = StorageKeys;
 
 export const storageMmkv = new MMKV();
 

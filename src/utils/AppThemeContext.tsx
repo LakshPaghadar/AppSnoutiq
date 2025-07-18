@@ -1,6 +1,16 @@
+import { storage, StorageKeys } from '@src/context';
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 type ThemeFlag = 1 | 2 | 3;
+
+const selectedRole = storage.getData(StorageKeys.SELECTED_ROLE);
+
+function getInitialThemeFlag(): ThemeFlag {
+  if (selectedRole === '1') return 1;
+  if (selectedRole === '2') return 2;
+  if (selectedRole === '3') return 3;
+  return 1; // default
+}
 
 type FlagThemeColors = {
   buttonColor: string;
@@ -8,29 +18,37 @@ type FlagThemeColors = {
   color828282?: string;
   color2C9CDB: string;
   colorFAFAFA: string;
+  colorFFFFFF: string;
+  color9B51E0: string;
 };
 
 const themeMap: Record<ThemeFlag, FlagThemeColors> = {
   1: {
-    buttonColor: 'red',
+    buttonColor: '#9B51E0',
     textColor: '#333333',
     color828282: '#828282',
     color2C9CDB: '#2C9CDB',
     colorFAFAFA: '#FAFAFA',
+    colorFFFFFF: '#FFFFFF',
+    color9B51E0: '#9B51E0',
   },
   2: {
-    buttonColor: 'blue',
+    buttonColor: '#219653',
     textColor: '#333333',
     color828282: '#828282',
     color2C9CDB: '#2C9CDB',
     colorFAFAFA: '#FAFAFA',
+    colorFFFFFF: '#FFFFFF',
+    color9B51E0: '#9B51E0',
   },
   3: {
-    buttonColor: 'cyan',
+    buttonColor: '#2C9CDB',
     textColor: '#333333',
     color828282: '#828282',
     color2C9CDB: '#2C9CDB',
     colorFAFAFA: '#FAFAFA',
+    colorFFFFFF: '#FFFFFF',
+    color9B51E0: '#9B51E0',
   },
 };
 
@@ -43,7 +61,8 @@ interface FlagThemeContextType {
 const FlagThemeContext = createContext<FlagThemeContextType | undefined>(undefined);
 
 export const FlagThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [themeFlag, setThemeFlag] = useState<ThemeFlag>(1);
+  // const [themeFlag, setThemeFlag] = useState<ThemeFlag>(1);
+  const [themeFlag, setThemeFlag] = useState<ThemeFlag>(getInitialThemeFlag());
 
   const value: FlagThemeContextType = {
     themeFlag,

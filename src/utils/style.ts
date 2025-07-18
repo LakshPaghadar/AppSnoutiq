@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import Font from './font';
+import { scaledSize, scaleHeight } from './dimensions';
 
 const CommonStyles = StyleSheet.create({
   container: {

@@ -9,4 +9,12 @@ export enum Images {
   GROOMER = require('./groomer.png'),
   VETE = require('./vete.png'),
   NEXT_ICON = require('./next_icon.png'),
+  APP_LOGO = require('./app_logo.png'),
+  EMAIL_ICON = require('./email.png'),
+  PS_ICON = require('./ps.png'),
+  GOOGLE_ICON = require('./google.png'),
+  FACEBOOK_ICON = require('./facebook.png'),
+  OR_ICON = require('./or.png'),
+  CALL_ICON = require('./call.png'),
+  PERSON = require('./person.png'),
 }

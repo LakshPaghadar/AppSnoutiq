@@ -2,6 +2,8 @@ import { Images } from '@src/assets';
 import { BaseLayout } from '@src/components';
 import AppButton from '@src/components/AppButton';
 import BaseAppBar from '@src/components/BaseAppBar';
+import { storage, StorageKeys, useAppContext } from '@src/context';
+import { Screen } from '@src/navigation/appNavigation.type';
 import { scaledSize, scaleHeight, scaleWidth } from '@src/utils';
 import { useFlagTheme } from '@src/utils/AppThemeContext';
 import Typography from '@src/utils/typography';
@@ -9,15 +11,22 @@ import React, { useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 const SelectRoleScreen = () => {
-  const { colors } = useFlagTheme();
+  const { colors, setThemeFlag } = useFlagTheme();
+  const { navigation } = useAppContext();
   const [selectedRole, setSelectedRole] = useState<number>(1);
+
   return (
     <BaseLayout>
       <View style={[Typography.flex1, Typography.paddingHorizontal20]}>
         <BaseAppBar title="I am a..." />
         <View style={[Typography.flex1]}>
           {/* PET_OWNER */}
-          <TouchableOpacity onPress={() => setSelectedRole(1)}>
+          <TouchableOpacity
+            onPress={() => {
+              storage.setData(StorageKeys.SELECTED_ROLE, 1);
+              setThemeFlag(1);
+              setSelectedRole(1);
+            }}>
             <View
               style={{
                 borderRadius: 8,
@@ -73,7 +82,12 @@ const SelectRoleScreen = () => {
           <View style={{ height: scaleHeight(16) }} />
 
           {/* VETE */}
-          <TouchableOpacity onPress={() => setSelectedRole(2)}>
+          <TouchableOpacity
+            onPress={() => {
+              storage.setData(StorageKeys.SELECTED_ROLE, 2);
+              setThemeFlag(2);
+              setSelectedRole(2);
+            }}>
             <View
               style={{
                 borderRadius: scaleWidth(8),
@@ -129,7 +143,12 @@ const SelectRoleScreen = () => {
           <View style={{ height: scaleHeight(16) }} />
 
           {/* GROOMER */}
-          <TouchableOpacity onPress={() => setSelectedRole(3)}>
+          <TouchableOpacity
+            onPress={() => {
+              storage.setData(StorageKeys.SELECTED_ROLE, 3);
+              setThemeFlag(3);
+              setSelectedRole(3);
+            }}>
             <View
               style={{
                 borderRadius: scaleWidth(8),
@@ -182,7 +201,13 @@ const SelectRoleScreen = () => {
             </View>
           </TouchableOpacity>
         </View>
-        <AppButton title="Continue" onPress={() => {}} />
+        <AppButton
+          title="Continue"
+          onPress={() => {
+            navigation.navigate(Screen.LOGIN);
+          }}
+          buttonColor={colors.color2C9CDB}
+        />
       </View>
     </BaseLayout>
   );

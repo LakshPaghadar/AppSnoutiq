@@ -1,3 +1,5 @@
+import { scaleHeight } from '@src/utils';
+import { useFlagTheme } from '@src/utils/AppThemeContext';
 import CommonStyles from '@src/utils/style';
 import React from 'react';
 import {
@@ -19,24 +21,19 @@ interface AppButtonProps {
 
 const DEFAULT_BUTTON_COLOR = '#2C9CDB';
 
-const AppButton: React.FC<AppButtonProps> = ({
-  title,
-  onPress,
-  buttonColor = DEFAULT_BUTTON_COLOR,
-  style,
-  textStyle,
-}) => {
+const AppButton: React.FC<AppButtonProps> = ({ title, onPress, buttonColor, style, textStyle }) => {
+  const { colors } = useFlagTheme();
   return (
     <TouchableOpacity
       style={[
         {
           borderRadius: 8,
-          paddingVertical: 12,
+          paddingVertical: scaleHeight(14),
           paddingHorizontal: 24,
           alignItems: 'center',
           justifyContent: 'center',
         },
-        { backgroundColor: buttonColor },
+        { backgroundColor: buttonColor ?? colors.buttonColor },
         style,
       ]}
       activeOpacity={0.8}
@@ -45,7 +42,5 @@ const AppButton: React.FC<AppButtonProps> = ({
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default AppButton;

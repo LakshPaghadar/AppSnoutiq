@@ -8,7 +8,7 @@ import { scaleHeight, scaleWidth } from '@src/utils';
 import { useFlagTheme } from '@src/utils/AppThemeContext';
 import Typography from '@src/utils/typography';
 import React, { useRef, useState } from 'react';
-import { Image, Text, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import PagerView from 'react-native-pager-view';
 
 const OnboardingScreen = () => {
@@ -51,9 +51,11 @@ const OnboardingScreen = () => {
   return (
     <BaseLayout>
       <View style={{ flex: 1, paddingHorizontal: scaleWidth(20) }}>
-        <Text style={[Typography.fontBold, Typography.alignSelfEnd, { color: colors.textColor }]}>
-          Skip
-        </Text>
+        <TouchableOpacity onPress={() => navigation.navigate(Screen.SELECT_ROLE)}>
+          <Text style={[Typography.fontBold, Typography.alignSelfEnd, { color: colors.textColor }]}>
+            Skip
+          </Text>
+        </TouchableOpacity>
 
         {/* PagerView */}
         <PagerView
@@ -112,7 +114,7 @@ const OnboardingScreen = () => {
           ))}
         </View>
 
-        <AppButton title="Next" onPress={handleNext} />
+        <AppButton title="Next" onPress={handleNext} buttonColor={colors.color2C9CDB} />
       </View>
     </BaseLayout>
   );

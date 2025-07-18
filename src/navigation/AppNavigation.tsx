@@ -13,6 +13,8 @@ import { NavStackParams, Screen } from './appNavigation.type';
 import SplashScreen from '@src/screens/NewsList/SplashScreen';
 import OnboardingScreen from '@src/screens/Onboarding/OnboardingScreen';
 import SelectRoleScreen from '@src/screens/SelectRole/SelectRoleScreen';
+import LoginScreen from '@src/screens/LoginScreen/LoginScreen';
+import SignUpScreen from '@src/screens/Signup/SignupScreen';
 
 export const navigationRef = React.createRef<NavigationContainerRef<NavStackParams>>();
 
@@ -30,6 +32,8 @@ export const AppNavigation = () => {
         <Stack.Screen name={Screen.NEWS_LIST} component={SplashScreen} />
         <Stack.Screen name={Screen.ONBOARDING} component={OnboardingScreen} />
         <Stack.Screen name={Screen.SELECT_ROLE} component={SelectRoleScreen} />
+        <Stack.Screen name={Screen.LOGIN} component={LoginScreen} />
+        <Stack.Screen name={Screen.SIGNUP} component={SignUpScreen} />
       </Stack.Navigator>
     </>
   );
