@@ -29,4 +29,5 @@ export enum Images {
   ADD_ANOTHER = require('./add_another_service.png'),
   CAMERA = require('./camera.png'),
   PLUS = require('./plus.png'),
+  TIME_ICON = require('./time.png'),
 }

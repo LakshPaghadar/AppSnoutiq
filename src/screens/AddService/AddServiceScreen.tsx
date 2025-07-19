@@ -5,7 +5,7 @@ import AppInput from '@src/components/AppInput';
 import BaseAppBar from '@src/components/BaseAppBar';
 import { useAppContext } from '@src/context';
 import { Screen } from '@src/navigation/appNavigation.type';
-import { scaledSize, scaleHeight, scaleWidth } from '@src/utils';
+import { scaleHeight, scaleWidth } from '@src/utils';
 import { useFlagTheme } from '@src/utils/AppThemeContext';
 import Typography from '@src/utils/typography';
 import React from 'react';
@@ -32,7 +32,7 @@ const AddServiceScreen = () => {
             <AppButton
               title="Save this Service"
               onPress={() => {
-                navigation.navigate(Screen.CREATE_PROFILE);
+                navigation.navigate(Screen.SELECT_TIME);
               }}
             />
             <View style={{ height: scaleHeight(20) }} />

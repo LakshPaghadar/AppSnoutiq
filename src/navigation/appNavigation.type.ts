@@ -15,6 +15,7 @@ export enum Screen {
   SELECT_ROLE = 'SELECT_ROLE',
   CREATE_PROFILE = 'CREATE_PROFILE',
   ADD_SERVICE = 'ADD_SERVICE',
+  SELECT_TIME = 'SELECT_TIME',
 }
 
 export type NavStackParams = {
@@ -29,6 +30,7 @@ export type NavStackParams = {
   [Screen.SELECT_ROLE]: undefined;
   [Screen.CREATE_PROFILE]: undefined;
   [Screen.ADD_SERVICE]: undefined;
+  [Screen.SELECT_TIME]: undefined;
 };
 
 export type NewsDetailParams = {

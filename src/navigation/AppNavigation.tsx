@@ -17,6 +17,7 @@ import LoginScreen from '@src/screens/LoginScreen/LoginScreen';
 import SignUpScreen from '@src/screens/Signup/SignupScreen';
 import CreateProfile from '@src/screens/CreateProfile/CreateProfile';
 import AddServiceScreen from '@src/screens/AddService/AddServiceScreen';
+import SelectTimeScreen from '@src/screens/SelectTime/SelectTime';
 
 export const navigationRef = React.createRef<NavigationContainerRef<NavStackParams>>();
 
@@ -38,6 +39,7 @@ export const AppNavigation = () => {
         <Stack.Screen name={Screen.SIGNUP} component={SignUpScreen} />
         <Stack.Screen name={Screen.CREATE_PROFILE} component={CreateProfile} />
         <Stack.Screen name={Screen.ADD_SERVICE} component={AddServiceScreen} />
+        <Stack.Screen name={Screen.SELECT_TIME} component={SelectTimeScreen} />
       </Stack.Navigator>
     </>
   );

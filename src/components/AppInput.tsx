@@ -12,6 +12,9 @@ interface AppInputProps extends TextInputProps {
   isPassword?: boolean;
   rightImage?: any;
   containerStyle?: ViewStyle;
+  readOnly?: boolean;
+  isShowHint?: boolean;
+  titleStyle?: any;
 }
 
 const AppInput: React.FC<AppInputProps> = ({
@@ -22,6 +25,9 @@ const AppInput: React.FC<AppInputProps> = ({
   isPassword = false,
   rightImage,
   containerStyle,
+  readOnly = false,
+  isShowHint = true,
+  titleStyle,
   ...rest
 }) => {
   const { colors } = useFlagTheme();
@@ -32,6 +38,7 @@ const AppInput: React.FC<AppInputProps> = ({
           Typography.textSize16,
           Typography.fontRegular,
           { color: colors.textColor, marginVertical: scaledSize(16) },
+          titleStyle,
         ]}>
         {title}
       </Text>
@@ -66,8 +73,9 @@ const AppInput: React.FC<AppInputProps> = ({
             color: colors.color828282,
           }}
           secureTextEntry={isPassword}
-          placeholder={placeholder || `Enter your ${title.toLowerCase()}`}
+          placeholder={isShowHint ? placeholder || `Enter your ${title.toLowerCase()}` : ''}
           placeholderTextColor={colors.color828282}
+          editable={!readOnly}
           {...rest}
         />
         {rightImage && (
