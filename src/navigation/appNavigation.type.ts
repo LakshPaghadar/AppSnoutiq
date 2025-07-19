@@ -11,6 +11,8 @@ export enum Screen {
   SETTING = 'SETTING',
   LOGIN = 'LOGIN',
   SIGNUP = 'SIGNUP',
+  ONBOARDING = 'ONBOARDING',
+  SELECT_ROLE = 'SELECT_ROLE',
 }
 
 export type NavStackParams = {
@@ -21,6 +23,8 @@ export type NavStackParams = {
   [Screen.SETTING]: undefined;
   [Screen.LOGIN]: undefined;
   [Screen.SIGNUP]: undefined;
+  [Screen.ONBOARDING]: undefined;
+  [Screen.SELECT_ROLE]: undefined;
 };
 
 export type NewsDetailParams = {

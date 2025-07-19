@@ -1,17 +1,9 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useColorScheme } from 'react-native';
 
-import { StorageKeys } from '@src/constants';
 import { color, Palette, Theme } from '@src/utils';
 
-import { storage } from './storage';
+import { storage, StorageKeys } from './storage';
 
 export interface AppThemeContextType {
   /**
@@ -31,9 +23,7 @@ export interface AppThemeContextType {
   color: Palette;
 }
 
-export const AppThemeContext = createContext<AppThemeContextType | undefined>(
-  undefined
-);
+export const AppThemeContext = createContext<AppThemeContextType | undefined>(undefined);
 
 export const useColor = () => {
   const context = useContext(AppThemeContext);
@@ -73,9 +63,5 @@ export const ThemeProvider = ({ children }: React.PropsWithChildren) => {
     }
   }, [colorScheme, setAppTheme]);
 
-  return (
-    <AppThemeContext.Provider value={value}>
-      {children}
-    </AppThemeContext.Provider>
-  );
+  return <AppThemeContext.Provider value={value}>{children}</AppThemeContext.Provider>;
 };
