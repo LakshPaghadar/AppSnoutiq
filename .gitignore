@@ -67,7 +67,7 @@ yarn-error.log
 
 # dist
 /dist
-/ios
+#/ios
 #/android
 #/node_modules
 
