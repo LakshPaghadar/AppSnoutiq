@@ -48,7 +48,12 @@ const SignUpScreen = () => {
             <AppInput title="Confirm Password" image={Images.PS_ICON} isPassword={true} />
 
             <View style={{ height: scaleHeight(20) }} />
-            <AppButton title="Sign Up" onPress={() => {}} />
+            <AppButton
+              title="Sign Up"
+              onPress={() => {
+                navigation.navigate(Screen.CREATE_PROFILE);
+              }}
+            />
 
             <View
               style={{
