@@ -10,7 +10,7 @@ interface AppInputProps extends TextInputProps {
   image?: any; // Image source (require or {uri:})
   icon?: any;
   isPassword?: boolean;
-
+  rightImage?: any;
   containerStyle?: ViewStyle;
 }
 
@@ -20,6 +20,7 @@ const AppInput: React.FC<AppInputProps> = ({
   icon,
   placeholder,
   isPassword = false,
+  rightImage,
   containerStyle,
   ...rest
 }) => {
@@ -69,6 +70,18 @@ const AppInput: React.FC<AppInputProps> = ({
           placeholderTextColor={colors.color828282}
           {...rest}
         />
+        {rightImage && (
+          <Image
+            source={rightImage}
+            style={{
+              width: scaledSize(20),
+              height: scaledSize(20),
+              marginRight: scaledSize(10),
+              resizeMode: 'contain',
+              tintColor: colors.color828282,
+            }}
+          />
+        )}
       </View>
     </View>
   );
