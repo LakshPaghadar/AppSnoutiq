@@ -21,6 +21,7 @@ type FlagThemeColors = {
   colorFFFFFF: string;
   color9B51E0: string;
   colorA1A5A72E: string;
+  colorEB5757: string;
 };
 
 const themeMap: Record<ThemeFlag, FlagThemeColors> = {
@@ -33,6 +34,7 @@ const themeMap: Record<ThemeFlag, FlagThemeColors> = {
     colorFFFFFF: '#FFFFFF',
     color9B51E0: '#9B51E0',
     colorA1A5A72E: '#A1A5A72E',
+    colorEB5757: '#EB5757',
   },
   2: {
     buttonColor: '#219653',
@@ -43,6 +45,7 @@ const themeMap: Record<ThemeFlag, FlagThemeColors> = {
     colorFFFFFF: '#FFFFFF',
     color9B51E0: '#9B51E0',
     colorA1A5A72E: '#A1A5A72E',
+    colorEB5757: '#EB5757',
   },
   3: {
     buttonColor: '#9B51E0',
@@ -53,6 +56,7 @@ const themeMap: Record<ThemeFlag, FlagThemeColors> = {
     colorFFFFFF: '#FFFFFF',
     color9B51E0: '#9B51E0',
     colorA1A5A72E: '#A1A5A72E',
+    colorEB5757: '#EB5757',
   },
 };
 

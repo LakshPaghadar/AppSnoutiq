@@ -163,7 +163,7 @@ const SelectTimeScreen = () => {
         <AppButton
           title="Save Availability"
           onPress={() => {
-            navigation.navigate(Screen.SELECT_TIME);
+            navigation.navigate(Screen.DASHBOARD);
           }}
         />
       </View>

@@ -16,6 +16,7 @@ export enum Screen {
   CREATE_PROFILE = 'CREATE_PROFILE',
   ADD_SERVICE = 'ADD_SERVICE',
   SELECT_TIME = 'SELECT_TIME',
+  DASHBOARD = 'DASHBOARD',
 }
 
 export type NavStackParams = {
@@ -31,6 +32,7 @@ export type NavStackParams = {
   [Screen.CREATE_PROFILE]: undefined;
   [Screen.ADD_SERVICE]: undefined;
   [Screen.SELECT_TIME]: undefined;
+  [Screen.DASHBOARD]: undefined;
 };
 
 export type NewsDetailParams = {

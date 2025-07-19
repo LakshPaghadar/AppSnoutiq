@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
 import { Images } from '@src/assets';
 import { BaseLayout } from '@src/components';
 import AppButton from '@src/components/AppButton';

@@ -5,9 +5,6 @@ import {
   createNativeStackNavigator,
   NativeStackNavigationOptions,
 } from '@react-navigation/native-stack';
-import { useSelector } from 'react-redux';
-
-import { isForceUpdate } from '@src/store';
 
 import { NavStackParams, Screen } from './appNavigation.type';
 import SplashScreen from '@src/screens/NewsList/SplashScreen';
@@ -18,6 +15,7 @@ import SignUpScreen from '@src/screens/Signup/SignupScreen';
 import CreateProfile from '@src/screens/CreateProfile/CreateProfile';
 import AddServiceScreen from '@src/screens/AddService/AddServiceScreen';
 import SelectTimeScreen from '@src/screens/SelectTime/SelectTime';
+import DashboardScreen from '@src/screens/Dashboard/Dashboard';
 
 export const navigationRef = React.createRef<NavigationContainerRef<NavStackParams>>();
 
@@ -32,6 +30,7 @@ export const AppNavigation = () => {
   return (
     <>
       <Stack.Navigator screenOptions={screenOptions}>
+        {/* <Stack.Screen name={Screen.DASHBOARD} component={DashboardScreen} /> */}
         <Stack.Screen name={Screen.NEWS_LIST} component={SplashScreen} />
         <Stack.Screen name={Screen.ONBOARDING} component={OnboardingScreen} />
         <Stack.Screen name={Screen.SELECT_ROLE} component={SelectRoleScreen} />
@@ -40,6 +39,7 @@ export const AppNavigation = () => {
         <Stack.Screen name={Screen.CREATE_PROFILE} component={CreateProfile} />
         <Stack.Screen name={Screen.ADD_SERVICE} component={AddServiceScreen} />
         <Stack.Screen name={Screen.SELECT_TIME} component={SelectTimeScreen} />
+        <Stack.Screen name={Screen.DASHBOARD} component={DashboardScreen} />
       </Stack.Navigator>
     </>
   );
