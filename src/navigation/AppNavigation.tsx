@@ -18,6 +18,7 @@ import SelectTimeScreen from '@src/screens/SelectTime/SelectTime';
 import DashboardScreen from '@src/screens/Dashboard/Dashboard';
 import AppointmentScreen from '@src/screens/Appointment/AppointmentScreen';
 import BookingRequestsScreen from '@src/screens/BookingRequests/BookingRequestsScreen';
+import AppointmentDetailsScreen from '@src/screens/Dashboard/AppointmentDetailsScreen';
 
 export const navigationRef = React.createRef<NavigationContainerRef<NavStackParams>>();
 
@@ -44,6 +45,7 @@ export const AppNavigation = () => {
         <Stack.Screen name={Screen.DASHBOARD} component={DashboardScreen} />
         <Stack.Screen name={Screen.APPOINTMENT} component={AppointmentScreen} />
         <Stack.Screen name={Screen.BOOKING_REQUESTS} component={BookingRequestsScreen} />
+        <Stack.Screen name={Screen.APPOINTMENT_DETAILS} component={AppointmentDetailsScreen} />
       </Stack.Navigator>
     </>
   );

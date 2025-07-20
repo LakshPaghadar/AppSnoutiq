@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Modal, TextInput, Alert, Image, Platform } from 'react-native';
 import { scaledSize, scaleHeight, scaleWidth } from '@src/utils';
 import { useFlagTheme } from '@src/utils/AppThemeContext';
 import Typography from '@src/utils/typography';
 import AppHeader from '@src/components/AppHeader';
+import AppInput from '@src/components/AppInput';
+import CustomDatePicker from '@src/components/CustomDatePicker';
+import CustomTimePicker from '@src/components/CustomTimePicker';
+import SuccessModal from '@src/components/SuccessModal';
 import BookingDetails from './Component/BookingDetails';
 import { Images } from '@src/assets';
 import { useNavigation } from '@react-navigation/native';
@@ -16,6 +20,17 @@ const BookingScreen = () => {
   const navigation = useNavigation();
   const [selectedDateFilter, setSelectedDateFilter] = useState<DateFilterType>('All');
   const [selectedStatusFilter, setSelectedStatusFilter] = useState<StatusFilterType>('Pending');
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showTimePicker, setShowTimePicker] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [bookingData, setBookingData] = useState({
+    petName: 'Jack',
+    ownerName: 'Jack',
+    date: '15 July 25',
+    time: '10:00 AM',
+    address: '123 Main St, Andheri West, Mumbai',
+  });
 
   const dateFilters: DateFilterType[] = ['All', 'Today\'s', 'Tomorrow', 'Choose date'];
   const statusFilters: StatusFilterType[] = ['Pending', 'Accepted', 'Completed'];
@@ -31,12 +46,52 @@ const BookingScreen = () => {
   };
 
   const handleAddPress = () => {
-    // Handle add new booking request
-    console.log('Add new booking request');
+    setIsModalVisible(true);
   };
 
   const handleBackPress = () => {
     navigation.goBack();
+  };
+
+  const handleSaveBooking = () => {
+    setIsModalVisible(false);
+    setShowSuccessModal(true);
+  };
+
+  const handleCancelBooking = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleSuccessModalClose = () => {
+    setShowSuccessModal(false);
+  };
+
+  const handleGoToBookingRequest = () => {
+    setShowSuccessModal(false);
+    // You can add navigation logic here if needed
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setBookingData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleDatePress = () => {
+    setShowDatePicker(true);
+  };
+
+  const handleTimePress = () => {
+    setShowTimePicker(true);
+  };
+
+  const handleDateSelect = (date: string) => {
+    setBookingData(prev => ({ ...prev, date }));
+  };
+
+  const handleTimeSelect = (time: string) => {
+    setBookingData(prev => ({ ...prev, time }));
   };
 
   // Filter the bookings based on selected filters
@@ -105,17 +160,17 @@ const BookingScreen = () => {
     let filteredBookings = baseBookings;
 
     // Filter by status
-    filteredBookings = filteredBookings.filter(booking => 
+    filteredBookings = filteredBookings.filter(booking =>
       booking.status === selectedStatusFilter
     );
 
     // Filter by date (simplified logic)
     if (selectedDateFilter === 'Today\'s') {
-      filteredBookings = filteredBookings.filter(booking => 
+      filteredBookings = filteredBookings.filter(booking =>
         booking.date.includes('Tuesday, 10 July')
       );
     } else if (selectedDateFilter === 'Tomorrow') {
-      filteredBookings = filteredBookings.filter(booking => 
+      filteredBookings = filteredBookings.filter(booking =>
         booking.date.includes('Wednesday, 11 July')
       );
     }
@@ -136,8 +191,8 @@ const BookingScreen = () => {
       {/* Filter Tabs - Two Rows */}
       <View style={styles.filterContainer}>
         {/* First Row - Date Filters */}
-        <ScrollView 
-          horizontal 
+        <ScrollView
+          horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.filterScrollContent}
           style={styles.firstRowFilter}
@@ -148,8 +203,8 @@ const BookingScreen = () => {
               style={[
                 styles.filterTab,
                 {
-                  backgroundColor: selectedDateFilter === filter 
-                    ? colors.buttonColor 
+                  backgroundColor: selectedDateFilter === filter
+                    ? colors.buttonColor
                     : '#F5F5F5',
                 },
               ]}
@@ -159,8 +214,8 @@ const BookingScreen = () => {
                 style={[
                   styles.filterText,
                   {
-                    color: selectedDateFilter === filter 
-                      ? 'white' 
+                    color: selectedDateFilter === filter
+                      ? 'white'
                       : colors.textColor,
                   },
                 ]}
@@ -189,8 +244,8 @@ const BookingScreen = () => {
                 style={[
                   styles.statusFilterText,
                   {
-                    color: selectedStatusFilter === filter 
-                      ? colors.buttonColor 
+                    color: selectedStatusFilter === filter
+                      ? colors.buttonColor
                       : colors.textColor,
                   },
                 ]}
@@ -203,13 +258,170 @@ const BookingScreen = () => {
       </View>
 
       {/* Booking Requests List */}
-      <ScrollView 
+      <ScrollView
         style={styles.contentContainer}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.contentContainerStyle}
       >
         <BookingDetails filteredBookings={getFilteredBookings()} />
       </ScrollView>
+
+      {/* Add Booking Modal */}
+      <Modal
+        visible={isModalVisible}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={handleCancelBooking}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContainer}>
+            {/* Modal Header */}
+            <Text style={[styles.modalTitle, { color: colors.textColor }]}>
+              Add Booking
+            </Text>
+
+            {/* Modal Content - Scrollable */}
+            <ScrollView
+              style={styles.modalContent}
+              showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
+            >
+              {/* Pet Name Input */}
+              <AppInput
+                title="Pet Name"
+                image={Images.PS_ICON}
+                value={bookingData.petName}
+                onChangeText={(text) => handleInputChange('petName', text)}
+                placeholder="Enter pet name"
+                titleStyle={{
+                  color: colors.textColor,
+                  ...Typography.fontMedium,
+                  ...Typography.textSize14,
+                }}
+                containerStyle={styles.inputField}
+              />
+
+              {/* Owner Name Input */}
+              <AppInput
+                title="Owner Name"
+                image={Images.PS_ICON}
+                value={bookingData.ownerName}
+                onChangeText={(text) => handleInputChange('ownerName', text)}
+                placeholder="Enter owner name"
+                titleStyle={{
+                  color: colors.textColor,
+                  ...Typography.fontMedium,
+                  ...Typography.textSize14,
+                }}
+                containerStyle={styles.inputField}
+              />
+
+              {/* Date and Time Row */}
+              <View style={styles.dateTimeRow}>
+                <View style={styles.dateTimeContainer}>
+                  <TouchableOpacity onPress={handleDatePress} style={styles.pickerContainer}>
+                    <AppInput
+                      title="Date"
+                      rightImage={Images.CALENDAR}
+                      value={bookingData.date}
+                      placeholder="Select Date"
+                      titleStyle={{
+                        color: colors.textColor,
+                        ...Typography.fontMedium,
+                        ...Typography.textSize14,
+                      }}
+                      containerStyle={styles.dateTimeInput}
+                      readOnly={true}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.dateTimeContainer}>
+                  <TouchableOpacity onPress={handleTimePress} style={styles.pickerContainer}>
+                    <AppInput
+                      title="Time"
+                      rightImage={Images.TIME_ICON}
+                      value={bookingData.time}
+                      placeholder="Select Time"
+                      titleStyle={{
+                        color: colors.textColor,
+                        ...Typography.fontMedium,
+                        ...Typography.textSize14,
+                      }}
+                      containerStyle={styles.dateTimeInput}
+                      readOnly={true}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              <View style={{
+                marginTop: scaleHeight(20),
+              }}>
+                {/* Address Input */}
+                <AppInput
+                  title="Address"
+                  image={Images.B_ADDRESS}
+                  value={bookingData.address}
+                  onChangeText={(text) => handleInputChange('address', text)}
+                  placeholder="Enter address"
+                  titleStyle={{
+                    color: colors.textColor,
+                    ...Typography.fontMedium,
+                    ...Typography.textSize14,
+                  }}
+                  containerStyle={styles.inputField}
+                />
+              </View>
+            </ScrollView>
+
+            {/* Modal Actions */}
+            <View style={styles.modalActions}>
+              <TouchableOpacity
+                style={[styles.saveButton, { backgroundColor: colors.buttonColor }]}
+                onPress={handleSaveBooking}
+              >
+                <Text style={styles.saveButtonText}>Save</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[styles.cancelButton, { borderColor: colors.buttonColor }]}
+                onPress={handleCancelBooking}
+              >
+                <Text style={[styles.cancelButtonText, { color: colors.buttonColor }]}>
+                  Cancel
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Custom Date Picker */}
+      <CustomDatePicker
+        visible={showDatePicker}
+        onClose={() => setShowDatePicker(false)}
+        onSelect={handleDateSelect}
+        currentValue={bookingData.date}
+      />
+
+      {/* Custom Time Picker */}
+      <CustomTimePicker
+        visible={showTimePicker}
+        onClose={() => setShowTimePicker(false)}
+        onSelect={handleTimeSelect}
+        currentValue={bookingData.time}
+      />
+
+      {/* Success Modal */}
+      <SuccessModal
+        visible={showSuccessModal}
+        onClose={handleSuccessModalClose}
+        onPrimaryAction={handleGoToBookingRequest}
+        title="Booking Added"
+        message="You have Added booking Successfully"
+        primaryButtonText="Go to Booking Request"
+        secondaryButtonText="Close"
+      />
     </View>
   );
 };
@@ -263,6 +475,78 @@ const styles = StyleSheet.create({
     paddingHorizontal: scaleWidth(16),
     paddingTop: scaleHeight(16),
     paddingBottom: scaleHeight(20),
+  },
+  // Modal Styles
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: scaleWidth(20),
+  },
+  modalContainer: {
+    backgroundColor: 'white',
+    borderRadius: scaleHeight(12),
+    width: '100%',
+    maxHeight: '85%',
+    padding: scaleWidth(24),
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+    elevation: 10,
+  },
+  modalTitle: {
+    ...Typography.fontBold,
+    ...Typography.textSize16,
+    textAlign: 'center',
+    marginBottom: scaleHeight(24),
+  },
+  modalContent: {
+    marginBottom: scaleHeight(20),
+  },
+  inputField: {
+    marginBottom: scaleHeight(20),
+    // marginTop: scaleHeight(10),
+  },
+  dateTimeRow: {
+    flexDirection: 'row',
+    gap: scaleWidth(16),
+    marginBottom: scaleHeight(20),
+  },
+  dateTimeContainer: {
+    flex: 1,
+  },
+  dateTimeInput: {
+    marginBottom: 0,
+  },
+  pickerContainer: {
+    flex: 1,
+  },
+  modalActions: {
+    marginTop: scaleHeight(24),
+    gap: scaleHeight(12),
+  },
+  saveButton: {
+    paddingVertical: scaleHeight(14),
+    borderRadius: scaleHeight(8),
+    alignItems: 'center',
+    marginBottom: scaleHeight(8),
+  },
+  saveButtonText: {
+    color: 'white',
+    ...Typography.fontBold,
+    ...Typography.textSize16,
+  },
+  cancelButton: {
+    paddingVertical: scaleHeight(14),
+    borderRadius: scaleHeight(8),
+    alignItems: 'center',
+    borderWidth: 1,
+  },
+  cancelButtonText: {
+    ...Typography.fontBold,
+    ...Typography.textSize16,
   },
 });
 

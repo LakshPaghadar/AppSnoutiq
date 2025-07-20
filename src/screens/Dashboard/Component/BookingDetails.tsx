@@ -87,10 +87,12 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ filteredBookings }) => 
         <Image
           source={Images.DUMMY1}
           style={{
-            width: scaledSize(60),
-            height: scaledSize(60),
-            borderRadius: scaleHeight(30),
-            marginRight: scaleWidth(12),
+            
+              width: scaledSize(60),
+              height: scaledSize(60),
+              borderRadius: scaleHeight(8),
+              marginRight: scaleWidth(12),
+            
           }}
         />
         <View
@@ -144,25 +146,25 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ filteredBookings }) => 
         style={{
           marginBottom: scaleHeight(16),
         }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
             marginBottom: scaleHeight(6),
-          }}>
-          <Image
-            source={Images.DASH_31}
-            resizeMode="contain"
+        }}>
+        <Image
+          source={Images.DASH_31}
+          resizeMode="contain"
             style={{ width: scaledSize(16), height: scaledSize(16), marginRight: scaleWidth(8) }}
-          />
-          <Text
-            style={{
-              color: colors.color828282,
-              ...Typography.fontRegular,
-              ...Typography.textSize14,
-            }}>
-            {item.time}
-          </Text>
+        />
+        <Text
+          style={{
+            color: colors.color828282,
+            ...Typography.fontRegular,
+            ...Typography.textSize14,
+          }}>
+          {item.time}
+        </Text>
         </View>
 
         <View
@@ -171,60 +173,60 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ filteredBookings }) => 
             alignItems: 'center',
             marginBottom: scaleHeight(6),
           }}>
-          <Image
-            source={Images.DASH_32}
-            resizeMode="contain"
+        <Image
+          source={Images.DASH_32}
+          resizeMode="contain"
             style={{ width: scaledSize(16), height: scaledSize(16), marginRight: scaleWidth(8) }}
-          />
-          <Text
-            style={{
-              color: colors.color828282,
-              ...Typography.fontRegular,
-              ...Typography.textSize14,
-            }}>
-            {item.date}
-          </Text>
-        </View>
-
-        <View
+        />
+        <Text
           style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginBottom: scaleHeight(6),
+            color: colors.color828282,
+            ...Typography.fontRegular,
+            ...Typography.textSize14,
           }}>
-          <Image
+          {item.date}
+        </Text>
+      </View>
+
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+            marginBottom: scaleHeight(6),
+        }}>
+        <Image
             source={Images.DASH_34}
-            resizeMode="contain"
+          resizeMode="contain"
             style={{ width: scaledSize(16), height: scaledSize(16), marginRight: scaleWidth(8) }}
-          />
-          <Text
-            style={{
-              color: colors.color828282,
-              ...Typography.fontRegular,
-              ...Typography.textSize14,
-            }}>
-            {item.service}
-          </Text>
-        </View>
-
-        <View
+        />
+        <Text
           style={{
-            flexDirection: 'row',
-            alignItems: 'center',
+            color: colors.color828282,
+            ...Typography.fontRegular,
+            ...Typography.textSize14,
           }}>
-          <Image
+            {item.service}
+        </Text>
+      </View>
+
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}>
+        <Image
             source={Images.B_ADDRESS}
-            resizeMode="contain"
+          resizeMode="contain"
             style={{ width: scaledSize(16), height: scaledSize(16), marginRight: scaleWidth(8) }}
-          />
-          <Text
-            style={{
-              color: colors.color828282,
-              ...Typography.fontRegular,
-              ...Typography.textSize14,
-            }}>
+        />
+        <Text
+          style={{
+            color: colors.color828282,
+            ...Typography.fontRegular,
+            ...Typography.textSize14,
+          }}>
             {item.location}
-          </Text>
+        </Text>
         </View>
       </View>
 
@@ -250,7 +252,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ filteredBookings }) => 
           style={{
             width: scaledSize(50),
             height: scaledSize(50),
-            borderRadius: scaleHeight(25),
+            borderRadius: scaleHeight(2),
             marginRight: scaleWidth(12),
           }}
         />
@@ -277,14 +279,14 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ filteredBookings }) => 
               resizeMode="contain"
               style={{ width: scaledSize(12), height: scaledSize(12), marginRight: scaleWidth(4) }}
             />
-            <Text
-              style={{
-                ...Typography.fontRegular,
+          <Text
+            style={{
+              ...Typography.fontRegular,
                 ...Typography.textSize12,
-                color: colors.color828282,
-              }}>
+              color: colors.color828282,
+            }}>
               {item.distance}
-            </Text>
+          </Text>
           </View>
         </View>
 
@@ -294,41 +296,41 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ filteredBookings }) => 
             gap: scaleWidth(8),
           }}>
           <TouchableOpacity
-            style={{
-              backgroundColor: colors.buttonColor,
+          style={{
+            backgroundColor: colors.buttonColor,
               width: scaledSize(40),
               height: scaledSize(40),
-              justifyContent: 'center',
-              alignItems: 'center',
+            justifyContent: 'center',
+            alignItems: 'center',
               borderRadius: scaleHeight(8),
-            }}>
-            <Image
-              source={Images.CALL2}
-              resizeMode="contain"
-              style={{
+          }}>
+          <Image
+            source={Images.CALL2}
+            resizeMode="contain"
+            style={{
                 width: scaledSize(20),
                 height: scaledSize(20),
-              }}
-            />
+            }}
+          />
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={{
-              backgroundColor: colors.buttonColor,
+          style={{
+            backgroundColor: colors.buttonColor,
               width: scaledSize(40),
               height: scaledSize(40),
-              justifyContent: 'center',
-              alignItems: 'center',
+            justifyContent: 'center',
+            alignItems: 'center',
               borderRadius: scaleHeight(8),
-            }}>
-            <Image
-              source={Images.CHAT2}
-              resizeMode="contain"
-              style={{
+          }}>
+          <Image
+            source={Images.CHAT2}
+            resizeMode="contain"
+            style={{
                 width: scaledSize(20),
                 height: scaledSize(20),
-              }}
-            />
+            }}
+          />
           </TouchableOpacity>
         </View>
       </View>
@@ -345,9 +347,9 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ filteredBookings }) => 
             backgroundColor: colors.buttonColor,
             paddingVertical: scaleHeight(12),
             borderRadius: scaleHeight(8),
-            alignItems: 'center',
-          }}>
-          <Text
+          alignItems: 'center',
+        }}>
+        <Text
             style={{
               color: 'white',
               ...Typography.fontBold,
@@ -371,10 +373,10 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ filteredBookings }) => 
             style={{
               color: '#EB5757',
               ...Typography.fontBold,
-              ...Typography.textSize14,
-            }}>
-            Reject
-          </Text>
+            ...Typography.textSize14,
+          }}>
+          Reject
+        </Text>
         </TouchableOpacity>
       </View>
     </View>

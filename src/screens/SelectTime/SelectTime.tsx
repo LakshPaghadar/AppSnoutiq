@@ -16,7 +16,7 @@ const SelectTimeScreen = () => {
   const daysFull = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const { colors } = useFlagTheme();
   const { navigation } = useAppContext();
-  const renderItem2 = ({ item }) => (
+  const renderItem2 = ({ item }: { item: string }) => (
     <View
       style={{
         backgroundColor: 'white', // purple
@@ -55,7 +55,7 @@ const SelectTimeScreen = () => {
           <AppInput
             title="Start Time"
             rightImage={Images.TIME_ICON}
-            style={{ width: scaleWidth(90) }}
+            containerStyle={{ width: scaleWidth(90) }}
             readOnly={true}
             isShowHint={false}
             value="10:00 AM"
@@ -70,7 +70,7 @@ const SelectTimeScreen = () => {
           <AppInput
             title="End Time"
             rightImage={Images.TIME_ICON}
-            style={{ width: scaleWidth(90) }}
+            containerStyle={{ width: scaleWidth(90) }}
             readOnly={true}
             isShowHint={false}
             value="8:00 PM"
@@ -98,7 +98,7 @@ const SelectTimeScreen = () => {
     </View>
   );
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }: { item: string }) => (
     <Pressable
       style={{
         backgroundColor: colors.buttonColor, // purple
@@ -158,7 +158,11 @@ const SelectTimeScreen = () => {
           />
         </View>
         <View style={{ height: scaleHeight(10) }} />
-        <AppInput title="Buffer Time Between Appointment" rightImage={Images.DROP_DOWN} />
+        <AppInput
+          title="Buffer Time Between Appointment"
+          rightImage={Images.DROP_DOWN}
+          containerStyle={{ marginBottom: scaleHeight(10) }}
+        />
         <View style={{ height: scaleHeight(10) }} />
         <AppButton
           title="Save Availability"

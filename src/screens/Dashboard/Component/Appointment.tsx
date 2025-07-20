@@ -4,6 +4,7 @@ import { useFlagTheme } from '@src/utils/AppThemeContext';
 import Typography from '@src/utils/typography';
 import React from 'react';
 import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 interface AppointmentItem {
   id: string;
@@ -19,6 +20,7 @@ interface AppointmentItem {
 
 const AppointmentList = () => {
   const { colors } = useFlagTheme();
+  const navigation = useNavigation();
   const appointments: AppointmentItem[] = [
     {
       id: '1',
@@ -55,191 +57,105 @@ const AppointmentList = () => {
     },
   ];
 
-  const renderItem = ({ item }: { item: AppointmentItem }) => (
-    <View
-      style={{
-        backgroundColor: 'white',
-        paddingVertical: scaleHeight(16),
-        paddingHorizontal: scaleWidth(20),
-        marginHorizontal: 0,
-        borderRadius: scaleHeight(12),
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 3,
-        marginBottom: scaleHeight(16),
-        width: '100%',
-      }}>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'flex-start',
-          marginBottom: scaleHeight(12),
-        }}>
-        <Image
-          source={Images.DUMMY1}
-          style={{
-            width: scaledSize(60),
-            height: scaledSize(60),
-            borderRadius: scaleHeight(30),
-            marginRight: scaleWidth(12),
-          }}
-        />
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'flex-start',
-          }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              width: '100%',
-              marginBottom: scaleHeight(4),
-            }}>
-            <View>
-              <Text
-                style={{
-                  ...Typography.fontBold,
-                  ...Typography.textSize16,
-                  color: colors.textColor,
-                  marginBottom: scaleHeight(2),
-                }}>
-                {item.petName}
-              </Text>
-              <Text
-                style={{
-                  ...Typography.fontRegular,
-                  ...Typography.textSize14,
-                  color: colors.color828282,
-                }}>
-                by {item.ownerName}
-              </Text>
-            </View>
+  const handleViewDetails = () => {
+    navigation.navigate('APPOINTMENT_DETAILS' as never);
+  };
 
-            <View
-              style={{
-                backgroundColor: item.status === 'Confirmed' 
-                  ? colors.buttonColor 
-                  : item.status === 'Upcoming'
+  const renderItem = ({ item }: { item: AppointmentItem }) => (
+    <View style={styles.appointmentCard}>
+      {/* Pet Profile Image */}
+      <Image
+        source={Images.DUMMY1}
+        style={styles.petImage}
+      />
+
+      {/* Content Container */}
+      <View style={styles.contentContainer}>
+        {/* Header Row with Pet Name and Status */}
+        <View style={styles.headerRow}>
+          <View style={styles.petInfo}>
+            <Text style={[styles.petName, { color: colors.textColor }]}>
+              {item.petName}
+            </Text>
+            <Text style={[styles.ownerName, { color: colors.color828282 }]}>
+              by {item.ownerName}
+            </Text>
+          </View>
+
+          {/* Status Badge */}
+          <View style={[
+            styles.statusBadge,
+            {
+              backgroundColor: item.status === 'Confirmed'
+                ? colors.buttonColor
+                : item.status === 'Upcoming'
                   ? '#F9C841'
                   : '#E5E5E5',
-                paddingHorizontal: scaleWidth(12),
-                paddingVertical: scaleHeight(6),
-                borderRadius: scaleHeight(16),
-              }}>
-              <Text
-                style={{
-                  color: item.status === 'Cancelled' ? colors.textColor : 'white',
-                  fontWeight: 'bold',
-                  fontSize: 12,
-                }}>
-                {item.status}
+            }
+          ]}>
+            <Text style={[
+              styles.statusText,
+              { color: item.status === 'Cancelled' ? colors.textColor : 'white' }
+            ]}>
+              {item.status}
+            </Text>
+          </View>
+        </View>
+
+        {/* Appointment Details - All Left Aligned */}
+        <View style={styles.detailsContainer}>
+          {/* Time and Date Row */}
+          <View style={styles.detailRow}>
+            <Image
+              source={Images.TIME_ICON}
+              style={styles.detailIcon}
+              resizeMode="contain"
+            />
+            <Text style={[styles.detailText, { color: colors.color828282 }]}>
+              {item.time}
+            </Text>
+            <View style={styles.dateContainer}>
+              <Image
+                source={Images.CALENDAR}
+                style={styles.detailIcon}
+                resizeMode="contain"
+              />
+              <Text style={[styles.detailText, { color: colors.color828282 }]}>
+                {item.date}
               </Text>
             </View>
           </View>
 
-          <View
-            style={{
-              width: '100%',
-            }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginBottom: scaleHeight(6),
-              }}>
+          {/* Pet Type */}
+          <View style={styles.detailRow}>
+            <Image
+              source={Images.DASH_33}
+              style={styles.detailIcon}
+              resizeMode="contain"
+            />
+            <Text style={[styles.detailText, { color: colors.color828282 }]}>
+              {item.petType}
+            </Text>
+          </View>
+
+          {/* Service and View Details Row */}
+          <View style={styles.serviceRow}>
+            <View style={styles.serviceContainer}>
               <Image
-                source={Images.DASH_31}
+                source={Images.SERVICE_ICON}
+                style={styles.detailIcon}
                 resizeMode="contain"
-                style={{ width: scaledSize(16), height: scaledSize(16), marginRight: scaleWidth(8) }}
               />
-              <Text
-                style={{
-                  color: colors.color828282,
-                  ...Typography.fontRegular,
-                  ...Typography.textSize14,
-                  marginRight: scaleWidth(16),
-                }}>
-                {item.time}
-              </Text>
-              <Image
-                source={Images.DASH_32}
-                resizeMode="contain"
-                style={{ width: scaledSize(16), height: scaledSize(16), marginRight: scaleWidth(8) }}
-              />
-              <Text
-                style={{
-                  color: colors.color828282,
-                  ...Typography.fontRegular,
-                  ...Typography.textSize14,
-                }}>
-                {item.date}
+              <Text style={[styles.detailText, { color: colors.color828282 }]}>
+                {item.service}
               </Text>
             </View>
 
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginBottom: scaleHeight(6),
-              }}>
-              <Image
-                source={Images.DASH_33}
-                resizeMode="contain"
-                style={{ width: scaledSize(16), height: scaledSize(16), marginRight: scaleWidth(8) }}
-              />
-              <Text
-                style={{
-                  color: colors.color828282,
-                  ...Typography.fontRegular,
-                  ...Typography.textSize14,
-                }}>
-                {item.petType}
+            <TouchableOpacity onPress={handleViewDetails}>
+              <Text style={[styles.viewDetailsText, { color: colors.buttonColor }]}>
+                View Details
               </Text>
-            </View>
-
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                width: '100%',
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  flex: 1,
-                }}>
-                <Image
-                  source={Images.DASH_34}
-                  resizeMode="contain"
-                  style={{ width: scaledSize(16), height: scaledSize(16), marginRight: scaleWidth(8) }}
-                />
-                <Text
-                  style={{
-                    color: colors.color828282,
-                    ...Typography.fontRegular,
-                    ...Typography.textSize14,
-                  }}>
-                  {item.service}
-                </Text>
-              </View>
-
-              <TouchableOpacity>
-                <Text
-                  style={{
-                    color: colors.buttonColor,
-                    fontWeight: 'bold',
-                    fontSize: 14,
-                  }}>
-                  View Details
-                </Text>
-              </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -256,6 +172,100 @@ const AppointmentList = () => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  appointmentCard: {
+    backgroundColor: 'white',
+    paddingVertical: scaleHeight(16),
+    paddingHorizontal: scaleWidth(20),
+    marginHorizontal: 0,
+    borderRadius: scaleHeight(12),
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+    marginBottom: scaleHeight(16),
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  petImage: {
+    width: scaledSize(60),
+    height: scaledSize(60),
+    borderRadius: scaleHeight(8),
+    marginRight: scaleWidth(12),
+  },
+  contentContainer: {
+    flex: 1,
+    paddingLeft: 0,
+  },
+  headerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: scaleHeight(12),
+  },
+  petInfo: {
+    flex: 1,
+  },
+  petName: {
+    ...Typography.fontBold,
+    ...Typography.textSize16,
+    marginBottom: scaleHeight(2),
+  },
+  ownerName: {
+    ...Typography.fontRegular,
+    ...Typography.textSize14,
+  },
+  statusBadge: {
+    paddingHorizontal: scaleWidth(12),
+    paddingVertical: scaleHeight(6),
+    borderRadius: scaleHeight(16),
+  },
+  statusText: {
+    fontWeight: 'bold',
+    fontSize: 12,
+  },
+  detailsContainer: {
+    width: '100%',
+    marginTop: scaleHeight(8),
+  },
+  detailRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: scaleHeight(6),
+    paddingLeft: 0,
+  },
+  detailIcon: {
+    width: scaledSize(16),
+    height: scaledSize(16),
+    marginRight: scaleWidth(8),
+    tintColor: '#828282',
+  },
+  detailText: {
+    ...Typography.fontRegular,
+    ...Typography.textSize14,
+  },
+  dateContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: scaleWidth(16),
+  },
+  serviceRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  serviceContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  viewDetailsText: {
+    fontWeight: 'bold',
+    fontSize: 14,
+  },
+});
 
 export default AppointmentList;
