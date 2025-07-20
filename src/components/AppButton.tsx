@@ -29,7 +29,6 @@ const AppButton: React.FC<AppButtonProps> = ({ title, onPress, buttonColor, styl
         {
           borderRadius: 8,
           paddingVertical: scaleHeight(14),
-          paddingHorizontal: 24,
           alignItems: 'center',
           justifyContent: 'center',
         },
