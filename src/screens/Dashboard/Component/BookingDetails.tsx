@@ -6,65 +6,80 @@ import Typography from '@src/utils/typography';
 import React from 'react';
 import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
+interface BookingItem {
+  id: string;
+  petName: string;
+  petBreed: string;
+  ownerName: string;
+  time: string;
+  date: string;
+  service: string;
+  location: string;
+  price: string;
+  distance: string;
+  image: string;
+}
+
 const BookingDetails = () => {
   const { colors } = useFlagTheme();
-  const appointments = [
+  const bookings: BookingItem[] = [
     {
       id: '1',
-      petName: 'Jack',
-      ownerName: 'Prajwal Pachpinde',
-      time: '10:00 AM',
+      petName: 'Simba',
+      petBreed: 'Labrador',
+      ownerName: 'Aarohi Sharma',
+      time: '11:00 AM',
       date: 'Tuesday, 10 July',
-      petType: 'Dog',
       service: 'Full Grooming',
-      status: 'Confirmed',
-      image: 'https://your-image-url.com/jack.jpg',
+      location: 'Home Visit',
+      price: '₹499',
+      distance: '1.2 km away',
+      image: 'https://your-image-url.com/simba.jpg',
     },
     {
       id: '2',
-      petName: 'Bella',
-      ownerName: 'Ajay Sharma',
-      time: '11:00 AM',
-      date: 'Tuesday, 12 July',
-      petType: 'Cat',
+      petName: 'Cookie',
+      petBreed: 'Persian',
+      ownerName: 'Shruti Pandey',
+      time: '12:00 AM',
+      date: 'Tuesday, 10 July',
       service: 'Full Grooming',
-      status: 'Upcoming',
-      image: 'https://your-image-url.com/bella.jpg',
+      location: 'Home Visit',
+      price: '₹499',
+      distance: '1.8 km away',
+      image: 'https://your-image-url.com/cookie.jpg',
     },
   ];
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }: { item: BookingItem }) => (
     <View
       style={{
-        backgroundColor: 'white', // purple
-        paddingVertical: scaleHeight(10),
+        backgroundColor: 'white',
+        paddingVertical: scaleHeight(16),
         paddingHorizontal: scaleWidth(20),
-        marginHorizontal: scaleWidth(5),
-        borderRadius: scaleHeight(10),
-        shadowColor: colors.colorA1A5A72E,
-        shadowOffset: { width: 2, height: 2 },
-        shadowOpacity: 1,
-        shadowRadius: 3.84,
-        elevation: 25,
-        marginBottom: scaleHeight(20),
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
+        marginHorizontal: scaleWidth(16),
+        borderRadius: scaleHeight(12),
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 3,
+        marginBottom: scaleHeight(16),
       }}>
+      {/* Top Section - Pet Details & Price */}
       <View
         style={{
           flexDirection: 'row',
-          backgroundColor: '#fff',
-          borderRadius: 12,
-          elevation: 3,
           alignItems: 'center',
+          marginBottom: scaleHeight(16),
         }}>
         <Image
           source={Images.DUMMY1}
           style={{
-            width: scaledSize(55),
-            height: scaledSize(55),
-            borderRadius: scaleHeight(10),
-            marginRight: scaleWidth(10),
+            width: scaledSize(60),
+            height: scaledSize(60),
+            borderRadius: scaleHeight(30),
+            marginRight: scaleWidth(12),
           }}
         />
         <View
@@ -76,6 +91,7 @@ const BookingDetails = () => {
               ...Typography.fontBold,
               ...Typography.textSize16,
               color: colors.textColor,
+              marginBottom: scaleHeight(2),
             }}>
             {item.petName}
           </Text>
@@ -85,18 +101,21 @@ const BookingDetails = () => {
               ...Typography.textSize14,
               color: colors.color828282,
             }}>
-            by {item.ownerName}
+            {item.petBreed}
           </Text>
         </View>
 
-        <View>
+        <View
+          style={{
+            alignItems: 'flex-end',
+          }}>
           <Text
             style={{
               ...Typography.fontBold,
               ...Typography.textSize16,
               color: colors.textColor,
             }}>
-            ₹499
+            {item.price}
           </Text>
           <Text
             style={{
@@ -109,113 +128,119 @@ const BookingDetails = () => {
         </View>
       </View>
 
+      {/* Middle Section - Booking Details */}
       <View
         style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          marginVertical: scaleHeight(10),
+          marginBottom: scaleHeight(16),
         }}>
-        <Image
-          source={Images.DASH_31}
-          resizeMode="contain"
-          style={{ width: scaledSize(15), height: scaledSize(15), marginEnd: scaleWidth(5) }}
-        />
-        <Text
+        <View
           style={{
-            marginRight: 10,
-            color: colors.color828282,
-            ...Typography.fontRegular,
-            ...Typography.textSize14,
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: scaleHeight(6),
           }}>
-          {item.time}
-        </Text>
-        <Image
-          source={Images.DASH_32}
-          resizeMode="contain"
-          style={{ width: scaledSize(15), height: scaledSize(15), marginEnd: scaleWidth(5) }}
-        />
-        <Text
+          <Image
+            source={Images.DASH_31}
+            resizeMode="contain"
+            style={{ width: scaledSize(16), height: scaledSize(16), marginRight: scaleWidth(8) }}
+          />
+          <Text
+            style={{
+              color: colors.color828282,
+              ...Typography.fontRegular,
+              ...Typography.textSize14,
+            }}>
+            {item.time}
+          </Text>
+        </View>
+
+        <View
           style={{
-            marginRight: 10,
-            color: colors.color828282,
-            ...Typography.fontRegular,
-            ...Typography.textSize14,
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: scaleHeight(6),
           }}>
-          {item.date}
-        </Text>
+          <Image
+            source={Images.DASH_32}
+            resizeMode="contain"
+            style={{ width: scaledSize(16), height: scaledSize(16), marginRight: scaleWidth(8) }}
+          />
+          <Text
+            style={{
+              color: colors.color828282,
+              ...Typography.fontRegular,
+              ...Typography.textSize14,
+            }}>
+            {item.date}
+          </Text>
+        </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: scaleHeight(6),
+          }}>
+          <Image
+            source={Images.DASH_34}
+            resizeMode="contain"
+            style={{ width: scaledSize(16), height: scaledSize(16), marginRight: scaleWidth(8) }}
+          />
+          <Text
+            style={{
+              color: colors.color828282,
+              ...Typography.fontRegular,
+              ...Typography.textSize14,
+            }}>
+            {item.service}
+          </Text>
+        </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <Image
+            source={Images.B_ADDRESS}
+            resizeMode="contain"
+            style={{ width: scaledSize(16), height: scaledSize(16), marginRight: scaleWidth(8) }}
+          />
+          <Text
+            style={{
+              color: colors.color828282,
+              ...Typography.fontRegular,
+              ...Typography.textSize14,
+            }}>
+            {item.location}
+          </Text>
+        </View>
       </View>
 
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          marginBottom: 3,
-        }}>
-        <Image
-          source={Images.DASH_33}
-          resizeMode="contain"
-          style={{ width: scaledSize(15), height: scaledSize(15), marginEnd: scaleWidth(5) }}
-        />
-        <Text
-          style={{
-            marginRight: 10,
-            color: colors.color828282,
-            ...Typography.fontRegular,
-            ...Typography.textSize14,
-          }}>
-          {item.petType}
-        </Text>
-      </View>
-
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: 3,
-          marginVertical: scaleHeight(10),
-        }}>
-        <Image
-          source={Images.DASH_34}
-          resizeMode="contain"
-          style={{ width: scaledSize(15), height: scaledSize(15), marginEnd: scaleWidth(5) }}
-        />
-        <Text
-          style={{
-            marginRight: 10,
-            color: colors.color828282,
-            ...Typography.fontRegular,
-            ...Typography.textSize14,
-            flex: 1,
-          }}>
-          {item.service}
-        </Text>
-      </View>
-
+      {/* Separator */}
       <View
         style={{
           height: 1,
           backgroundColor: colors.color828282,
-          marginVertical: scaleHeight(10),
-          width: '100%',
+          marginVertical: scaleHeight(12),
+          opacity: 0.3,
         }}
       />
 
+      {/* Bottom Section - Owner Details & Actions */}
       <View
         style={{
           flexDirection: 'row',
-          backgroundColor: '#fff',
-          borderRadius: 12,
-          elevation: 3,
           alignItems: 'center',
+          marginBottom: scaleHeight(16),
         }}>
         <Image
           source={Images.DUMMY1}
           style={{
-            width: scaledSize(55),
-            height: scaledSize(55),
-            borderRadius: scaleHeight(10),
-            marginRight: scaleWidth(10),
+            width: scaledSize(50),
+            height: scaledSize(50),
+            borderRadius: scaleHeight(25),
+            marginRight: scaleWidth(12),
           }}
         />
         <View
@@ -225,95 +250,117 @@ const BookingDetails = () => {
           <Text
             style={{
               ...Typography.fontBold,
-              ...Typography.textSize16,
+              ...Typography.textSize14,
               color: colors.textColor,
+              marginBottom: scaleHeight(2),
             }}>
-            {item.petName}
+            {item.ownerName}
           </Text>
           <Text
             style={{
               ...Typography.fontRegular,
-              ...Typography.textSize14,
+              ...Typography.textSize12,
               color: colors.color828282,
             }}>
-            by {item.ownerName}
+            {item.distance}
           </Text>
         </View>
 
         <View
           style={{
-            backgroundColor: colors.buttonColor,
-            width: scaledSize(44),
-            height: scaledSize(44),
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: scaleHeight(10),
-            marginEnd: scaleWidth(10),
+            flexDirection: 'row',
+            gap: scaleWidth(8),
           }}>
-          <Image
-            source={Images.CALL2}
-            resizeMode="contain"
+          <TouchableOpacity
             style={{
-              width: scaledSize(25),
-              height: scaledSize(25),
+              backgroundColor: colors.buttonColor,
+              width: scaledSize(40),
+              height: scaledSize(40),
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: scaleHeight(8),
+            }}>
+            <Image
+              source={Images.CALL2}
+              resizeMode="contain"
+              style={{
+                width: scaledSize(20),
+                height: scaledSize(20),
+              }}
+            />
+          </TouchableOpacity>
 
-              alignSelf: 'center',
-            }}
-          />
-        </View>
-
-        <View
-          style={{
-            backgroundColor: colors.buttonColor,
-            width: scaledSize(44),
-            height: scaledSize(44),
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: scaleHeight(10),
-            marginEnd: scaleWidth(10),
-          }}>
-          <Image
-            source={Images.CHAT2}
-            resizeMode="contain"
+          <TouchableOpacity
             style={{
-              width: scaledSize(25),
-              height: scaledSize(25),
-
-              alignSelf: 'center',
-            }}
-          />
+              backgroundColor: colors.buttonColor,
+              width: scaledSize(40),
+              height: scaledSize(40),
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: scaleHeight(8),
+            }}>
+            <Image
+              source={Images.CHAT2}
+              resizeMode="contain"
+              style={{
+                width: scaledSize(20),
+                height: scaledSize(20),
+              }}
+            />
+          </TouchableOpacity>
         </View>
       </View>
 
+      {/* Action Buttons */}
       <View
         style={{
           flexDirection: 'row',
-          alignItems: 'center',
-          marginTop: scaleHeight(15),
+          gap: scaleWidth(12),
         }}>
-        <AppButton title="Confirm" onPress={() => {}} style={{ flex: 1 }} />
-        <View style={{ width: scaleWidth(20) }} />
-        <Text
+        <TouchableOpacity
           style={{
             flex: 1,
-            textAlign: 'center',
+            backgroundColor: colors.buttonColor,
+            paddingVertical: scaleHeight(12),
+            borderRadius: scaleHeight(8),
+            alignItems: 'center',
+          }}>
+          <Text
+            style={{
+              color: 'white',
+              ...Typography.fontBold,
+              ...Typography.textSize14,
+            }}>
+            Accept
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
+            flex: 1,
+            backgroundColor: 'white',
+            paddingVertical: scaleHeight(12),
+            borderRadius: scaleHeight(8),
+            alignItems: 'center',
             borderWidth: 1,
             borderColor: colors.buttonColor,
-            borderRadius: scaleHeight(10),
-            paddingVertical: scaleHeight(13),
-            ...Typography.fontMedium,
-            ...Typography.textSize14,
-            color: colors.colorEB5757,
           }}>
-          Reject
-        </Text>
+          <Text
+            style={{
+              color: '#EB5757',
+              ...Typography.fontBold,
+              ...Typography.textSize14,
+            }}>
+            Reject
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 
   return (
     <FlatList
-      data={appointments}
+      data={bookings}
       scrollEnabled={false}
       keyExtractor={item => item.id}
       renderItem={renderItem}

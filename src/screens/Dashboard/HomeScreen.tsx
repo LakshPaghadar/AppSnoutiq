@@ -19,7 +19,7 @@ const HomeScreen = () => {
     { title: 'Appointments', image: Images.DASH_24 },
   ];
 
-  const renderItem2 = ({ item }) => {
+  const renderItem2 = ({ item }: { item: any }) => {
     return (
       <View
         style={{

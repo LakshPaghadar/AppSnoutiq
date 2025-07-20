@@ -5,9 +5,21 @@ import Typography from '@src/utils/typography';
 import React from 'react';
 import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
+interface AppointmentItem {
+  id: string;
+  petName: string;
+  ownerName: string;
+  time: string;
+  date: string;
+  petType: string;
+  service: string;
+  status: string;
+  image: string;
+}
+
 const AppointmentList = () => {
   const { colors } = useFlagTheme();
-  const appointments = [
+  const appointments: AppointmentItem[] = [
     {
       id: '1',
       petName: 'Jack',
@@ -32,39 +44,34 @@ const AppointmentList = () => {
     },
   ];
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }: { item: AppointmentItem }) => (
     <View
       style={{
-        backgroundColor: 'white', // purple
-        paddingVertical: scaleHeight(10),
-        paddingHorizontal: scaleWidth(20),
-        marginHorizontal: scaleWidth(5),
-        borderRadius: scaleHeight(10),
-        shadowColor: colors.colorA1A5A72E,
-        shadowOffset: { width: 2, height: 2 },
-        shadowOpacity: 1,
-        shadowRadius: 3.84,
-        elevation: 25,
-        marginBottom: scaleHeight(20),
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
+        backgroundColor: '#fff',
+        paddingVertical: scaleHeight(16),
+        paddingHorizontal: scaleWidth(10),
+        marginHorizontal: scaleWidth(16),
+        borderRadius: scaleHeight(16),
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+        elevation: 4,
+        marginBottom: scaleHeight(16),
       }}>
       <View
         style={{
           flexDirection: 'row',
-          backgroundColor: '#fff',
-          borderRadius: 12,
-
-          elevation: 3,
           alignItems: 'center',
+          marginBottom: scaleHeight(12),
         }}>
         <Image
           source={Images.DUMMY1}
           style={{
-            width: scaledSize(55),
-            height: scaledSize(55),
-            borderRadius: scaleHeight(10),
-            marginRight: scaleWidth(10),
+            width: scaledSize(60),
+            height: scaledSize(60),
+            borderRadius: scaleHeight(12),
+            marginRight: scaleWidth(12),
           }}
         />
         <View
@@ -76,6 +83,7 @@ const AppointmentList = () => {
               ...Typography.fontBold,
               ...Typography.textSize16,
               color: colors.textColor,
+              marginBottom: scaleHeight(2),
             }}>
             {item.petName}
           </Text>
@@ -89,120 +97,122 @@ const AppointmentList = () => {
           </Text>
         </View>
 
-        <Text
-          style={[
-            {
-              paddingHorizontal: scaleWidth(10),
-              paddingVertical: scaleHeight(4),
-              borderRadius: scaleHeight(120),
-              fontWeight: 'bold',
-              fontSize: 12,
-            },
-            item.status === 'Confirmed'
-              ? {
-                  backgroundColor: colors.buttonColor,
-                  color: 'white',
-                }
-              : {
-                  backgroundColor: '#F9C841',
-                  color: 'white',
-                },
-          ]}>
-          {item.status}
-        </Text>
-      </View>
-
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          marginVertical: scaleHeight(10),
-        }}>
-        <Image
-          source={Images.DASH_31}
-          resizeMode="contain"
-          style={{ width: scaledSize(15), height: scaledSize(15), marginEnd: scaleWidth(5) }}
-        />
-        <Text
+        <View
           style={{
-            marginRight: 10,
-            color: colors.color828282,
-            ...Typography.fontRegular,
-            ...Typography.textSize14,
+            backgroundColor: item.status === 'Confirmed' ? colors.buttonColor : '#F9C841',
+            paddingHorizontal: scaleWidth(12),
+            paddingVertical: scaleHeight(6),
+            borderRadius: scaleHeight(20),
           }}>
-          {item.time}
-        </Text>
-        <Image
-          source={Images.DASH_32}
-          resizeMode="contain"
-          style={{ width: scaledSize(15), height: scaledSize(15), marginEnd: scaleWidth(5) }}
-        />
-        <Text
-          style={{
-            marginRight: 10,
-            color: colors.color828282,
-            ...Typography.fontRegular,
-            ...Typography.textSize14,
-          }}>
-          {item.date}
-        </Text>
-      </View>
-
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          marginBottom: 3,
-        }}>
-        <Image
-          source={Images.DASH_33}
-          resizeMode="contain"
-          style={{ width: scaledSize(15), height: scaledSize(15), marginEnd: scaleWidth(5) }}
-        />
-        <Text
-          style={{
-            marginRight: 10,
-            color: colors.color828282,
-            ...Typography.fontRegular,
-            ...Typography.textSize14,
-          }}>
-          {item.petType}
-        </Text>
-      </View>
-
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: 3,
-          marginVertical: scaleHeight(10),
-        }}>
-        <Image
-          source={Images.DASH_34}
-          resizeMode="contain"
-          style={{ width: scaledSize(15), height: scaledSize(15), marginEnd: scaleWidth(5) }}
-        />
-        <Text
-          style={{
-            marginRight: 10,
-            color: colors.color828282,
-            ...Typography.fontRegular,
-            ...Typography.textSize14,
-            flex: 1,
-          }}>
-          {item.service}
-        </Text>
-
-        <TouchableOpacity>
           <Text
             style={{
-              color: '#A363F9',
+              color: 'white',
               fontWeight: 'bold',
+              fontSize: 12,
             }}>
-            View Details
+            {item.status}
           </Text>
-        </TouchableOpacity>
+        </View>
+      </View>
+
+      <View
+        style={{
+          marginBottom: scaleHeight(8),
+        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: scaleHeight(6),
+          }}>
+          <Image
+            source={Images.DASH_31}
+            resizeMode="contain"
+            style={{ width: scaledSize(16), height: scaledSize(16), marginRight: scaleWidth(8) }}
+          />
+          <Text
+            style={{
+              color: colors.color828282,
+              ...Typography.fontRegular,
+              ...Typography.textSize14,
+              marginRight: scaleWidth(16),
+            }}>
+            {item.time}
+          </Text>
+          <Image
+            source={Images.DASH_32}
+            resizeMode="contain"
+            style={{ width: scaledSize(16), height: scaledSize(16), marginRight: scaleWidth(8) }}
+          />
+          <Text
+            style={{
+              color: colors.color828282,
+              ...Typography.fontRegular,
+              ...Typography.textSize14,
+            }}>
+            {item.date}
+          </Text>
+        </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: scaleHeight(6),
+          }}>
+          <Image
+            source={Images.DASH_33}
+            resizeMode="contain"
+            style={{ width: scaledSize(16), height: scaledSize(16), marginRight: scaleWidth(8) }}
+          />
+          <Text
+            style={{
+              color: colors.color828282,
+              ...Typography.fontRegular,
+              ...Typography.textSize14,
+            }}>
+            {item.petType}
+          </Text>
+        </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              flex: 1,
+            }}>
+            <Image
+              source={Images.DASH_34}
+              resizeMode="contain"
+              style={{ width: scaledSize(16), height: scaledSize(16), marginRight: scaleWidth(8) }}
+            />
+            <Text
+              style={{
+                color: colors.color828282,
+                ...Typography.fontRegular,
+                ...Typography.textSize14,
+              }}>
+              {item.service}
+            </Text>
+          </View>
+
+          <TouchableOpacity>
+            <Text
+              style={{
+                color: colors.buttonColor,
+                fontWeight: 'bold',
+                fontSize: 14,
+              }}>
+              View Details
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
