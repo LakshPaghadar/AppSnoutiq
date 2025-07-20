@@ -54,4 +54,15 @@ export enum Images {
   CALL2 = require('./call2.png'),
   CHAT2 = require('./chat2.png'),
   PLUS_PURPLE = require('./plus-purple.png'),
+
+
+  CALENDAR = require('./calender.png'),
+  EDIT_PEN = require('./edit-pen.png'),
+  LOCK_ICON = require('./lock.png'),
+  LOGOUT_ICON = require('./logout.png'),
+  QUESTION_ICON = require('./question.png'),
+  SERVICE_ICON = require('./service.png'),
+  STAR_ICON = require('./star.png'),
+  TERMS_CONDITIONS = require('./terms.png'),
+
 }

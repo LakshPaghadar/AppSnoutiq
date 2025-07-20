@@ -210,7 +210,7 @@ const HomeScreen = () => {
               }}>
               Today’s Appointments
             </Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Appointment' as never)}>
+            <TouchableOpacity onPress={() => navigation.navigate(Screen.APPOINTMENT as never)}>
               <Text
                 style={{
                   ...Typography.fontMedium,
@@ -240,7 +240,7 @@ const HomeScreen = () => {
               }}>
               Booking Requests
             </Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Appointment' as never)}>
+            <TouchableOpacity onPress={() => navigation.navigate(Screen.APPOINTMENT as never)}>
               <Text
                 style={{
                   ...Typography.fontMedium,
