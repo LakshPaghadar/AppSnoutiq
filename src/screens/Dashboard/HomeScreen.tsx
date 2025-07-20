@@ -4,13 +4,16 @@ import { scaledSize, scaleHeight, scaleWidth } from '@src/utils';
 import { FlagThemeProvider, useFlagTheme } from '@src/utils/AppThemeContext';
 import Typography from '@src/utils/typography';
 import React from 'react';
-import { FlatList, Image, ScrollView, Text, View } from 'react-native';
+import { FlatList, Image, ScrollView, Text, View, TouchableOpacity } from 'react-native';
 import AppointmentList from './Component/Appointment';
 import BookingDetails from './Component/BookingDetails';
+import { useNavigation } from '@react-navigation/native';
+import { Screen } from '@src/navigation/appNavigation.type';
 
 const HomeScreen = () => {
   const list = [1, 2, 3, 4, 5];
   const { colors } = useFlagTheme();
+  const navigation = useNavigation();
   const list2 = [
     { title: 'Manage Service', image: Images.DASH_21 },
     { title: 'Add Booking', image: Images.DASH_22 },
@@ -65,7 +68,8 @@ const HomeScreen = () => {
 
   const renderItem1 = ({ item }: { item: number }) => {
     return (
-      <View
+      <TouchableOpacity
+        onPress={() => navigation.navigate(Screen.APPOINTMENT as never)}
         style={{
           backgroundColor: 'white', // purple
           paddingVertical: scaleHeight(10),
@@ -84,7 +88,7 @@ const HomeScreen = () => {
         }}>
         <Text
           style={{ ...Typography.fontRegular, ...Typography.textSize14, color: colors.textColor }}>
-          Today’s Bookings
+          Today's Bookings
         </Text>
         <View
           style={{ flexDirection: 'row', alignItems: 'center', marginVertical: scaleHeight(15) }}>
@@ -134,7 +138,7 @@ const HomeScreen = () => {
             +2 this Week
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
   return (
@@ -206,14 +210,16 @@ const HomeScreen = () => {
               }}>
               Today’s Appointments
             </Text>
-            <Text
-              style={{
-                ...Typography.fontMedium,
-                ...Typography.textSize14,
-                color: colors.buttonColor,
-              }}>
-              See all
-            </Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Appointment' as never)}>
+              <Text
+                style={{
+                  ...Typography.fontMedium,
+                  ...Typography.textSize14,
+                  color: colors.buttonColor,
+                }}>
+                See all
+              </Text>
+            </TouchableOpacity>
           </View>
 
           <View style={{ flex: 1, marginTop: scaleHeight(15) }}>
@@ -234,14 +240,16 @@ const HomeScreen = () => {
               }}>
               Booking Requests
             </Text>
-            <Text
-              style={{
-                ...Typography.fontMedium,
-                ...Typography.textSize14,
-                color: colors.buttonColor,
-              }}>
-              See all
-            </Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Appointment' as never)}>
+              <Text
+                style={{
+                  ...Typography.fontMedium,
+                  ...Typography.textSize14,
+                  color: colors.buttonColor,
+                }}>
+                See all
+              </Text>
+            </TouchableOpacity>
           </View>
 
           <View style={{ flex: 1, marginTop: scaleHeight(15) }}>

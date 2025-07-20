@@ -53,4 +53,5 @@ export enum Images {
   DASH_34 = require('./dash_34.png'),
   CALL2 = require('./call2.png'),
   CHAT2 = require('./chat2.png'),
+  PLUS_PURPLE = require('./plus-purple.png'),
 }
