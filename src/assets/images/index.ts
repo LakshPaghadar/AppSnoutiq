@@ -65,4 +65,13 @@ export enum Images {
   STAR_ICON = require('./star.png'),
   TERMS_CONDITIONS = require('./terms.png'),
 
+
+  FILTER = require('./filter.png'),
+  PLUS_RIGHT = require('./plus-right.png'),
+  SEARCH = require('./search.png'),
+  CHAT_RED_ICON = require('./chat-redicon.png'),
+  ALERT_EMERGENCY = require('./alert-emergency.png'),
+
+  CHECK_SUCCESS = require('./check-success.png'),
+  CHAT_PURPLE = require("./chat-purple.png")
 }
