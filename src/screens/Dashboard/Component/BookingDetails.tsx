@@ -1,5 +1,4 @@
 import { Images } from '@src/assets';
-import AppButton from '@src/components/AppButton';
 import { scaledSize, scaleHeight, scaleWidth } from '@src/utils';
 import { useFlagTheme } from '@src/utils/AppThemeContext';
 import Typography from '@src/utils/typography';
@@ -17,12 +16,19 @@ interface BookingItem {
   location: string;
   price: string;
   distance: string;
+  status: string;
   image: string;
 }
 
-const BookingDetails = () => {
+interface BookingDetailsProps {
+  filteredBookings?: BookingItem[];
+}
+
+const BookingDetails: React.FC<BookingDetailsProps> = ({ filteredBookings }) => {
   const { colors } = useFlagTheme();
-  const bookings: BookingItem[] = [
+  
+  // Default bookings if no filtered bookings provided
+  const defaultBookings: BookingItem[] = [
     {
       id: '1',
       petName: 'Simba',
@@ -34,6 +40,7 @@ const BookingDetails = () => {
       location: 'Home Visit',
       price: '₹499',
       distance: '1.2 km away',
+      status: 'Pending',
       image: 'https://your-image-url.com/simba.jpg',
     },
     {
@@ -47,9 +54,12 @@ const BookingDetails = () => {
       location: 'Home Visit',
       price: '₹499',
       distance: '1.8 km away',
+      status: 'Pending',
       image: 'https://your-image-url.com/cookie.jpg',
     },
   ];
+
+  const bookings = filteredBookings || defaultBookings;
 
   const renderItem = ({ item }: { item: BookingItem }) => (
     <View
@@ -57,7 +67,7 @@ const BookingDetails = () => {
         backgroundColor: 'white',
         paddingVertical: scaleHeight(16),
         paddingHorizontal: scaleWidth(20),
-        marginHorizontal: scaleWidth(16),
+        marginHorizontal: 0,
         borderRadius: scaleHeight(12),
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
@@ -65,6 +75,7 @@ const BookingDetails = () => {
         shadowRadius: 4,
         elevation: 3,
         marginBottom: scaleHeight(16),
+        width: '100%',
       }}>
       {/* Top Section - Pet Details & Price */}
       <View
@@ -256,14 +267,25 @@ const BookingDetails = () => {
             }}>
             {item.ownerName}
           </Text>
-          <Text
+          <View
             style={{
-              ...Typography.fontRegular,
-              ...Typography.textSize12,
-              color: colors.color828282,
+              flexDirection: 'row',
+              alignItems: 'center',
             }}>
-            {item.distance}
-          </Text>
+            <Image
+              source={Images.B_ADDRESS}
+              resizeMode="contain"
+              style={{ width: scaledSize(12), height: scaledSize(12), marginRight: scaleWidth(4) }}
+            />
+            <Text
+              style={{
+                ...Typography.fontRegular,
+                ...Typography.textSize12,
+                color: colors.color828282,
+              }}>
+              {item.distance}
+            </Text>
+          </View>
         </View>
 
         <View

@@ -17,6 +17,8 @@ export enum Screen {
   ADD_SERVICE = 'ADD_SERVICE',
   SELECT_TIME = 'SELECT_TIME',
   DASHBOARD = 'DASHBOARD',
+  APPOINTMENT = 'APPOINTMENT',
+  BOOKING_REQUESTS = 'BOOKING_REQUESTS',
 }
 
 export type NavStackParams = {
@@ -33,6 +35,8 @@ export type NavStackParams = {
   [Screen.ADD_SERVICE]: undefined;
   [Screen.SELECT_TIME]: undefined;
   [Screen.DASHBOARD]: undefined;
+  [Screen.APPOINTMENT]: undefined;
+  [Screen.BOOKING_REQUESTS]: undefined;
 };
 
 export type NewsDetailParams = {
