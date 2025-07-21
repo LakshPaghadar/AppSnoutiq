@@ -29,6 +29,7 @@ const HomeScreen = () => {
           marginEnd: scaleWidth(20),
           justifyContent: 'center',
           alignItems: 'center',
+          backgroundColor: "white"
         }}>
         <View
           style={{

@@ -51,7 +51,7 @@ const OnboardingScreen = () => {
     <BaseLayout>
       <View style={{ flex: 1, paddingHorizontal: scaleWidth(20) }}>
         <TouchableOpacity onPress={() => navigation.navigate(Screen.SELECT_ROLE)}>
-          <Text style={[Typography.fontBold, Typography.alignSelfEnd, { color: colors.textColor }]}>
+          <Text style={[Typography.fontBold, { alignSelf: 'flex-end' }, { color: colors.textColor }]}>
             Skip
           </Text>
         </TouchableOpacity>
@@ -113,7 +113,7 @@ const OnboardingScreen = () => {
           ))}
         </View>
 
-        <AppButton title="Next" onPress={handleNext} buttonColor={colors.color2C9CDB} />
+        <AppButton title="Next" onPress={handleNext} buttonColor={colors.color2C9CDB} style={{ marginBottom: scaleHeight(32) }} />
       </View>
     </BaseLayout>
   );

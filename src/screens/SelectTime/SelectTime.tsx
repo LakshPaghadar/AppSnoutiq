@@ -8,93 +8,101 @@ import { Screen } from '@src/navigation/appNavigation.type';
 import { scaledSize, scaleHeight, scaleWidth } from '@src/utils';
 import { useFlagTheme } from '@src/utils/AppThemeContext';
 import Typography from '@src/utils/typography';
-import React from 'react';
+import React, { useState } from 'react';
 import { FlatList, Image, Pressable, Text, View } from 'react-native';
+import CustomTimePicker from '@src/components/CustomTimePicker';
 
 const SelectTimeScreen = () => {
   const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const daysFull = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   const { colors } = useFlagTheme();
   const { navigation } = useAppContext();
-  const renderItem2 = ({ item }: { item: string }) => (
+
+  // State for time selection
+  const [timeSlots, setTimeSlots] = useState(
+    daysFull.map(() => ({ start: '10:00 AM', end: '08:00 PM' }))
+  );
+  const [pickerVisible, setPickerVisible] = useState(false);
+  const [pickerDayIndex, setPickerDayIndex] = useState<number | null>(null);
+  const [pickerField, setPickerField] = useState<'start' | 'end' | null>(null);
+  const [pickerValue, setPickerValue] = useState('');
+
+  const handleTimePress = (dayIndex: number, field: 'start' | 'end') => {
+    setPickerDayIndex(dayIndex);
+    setPickerField(field);
+    setPickerValue(timeSlots[dayIndex]?.[field] ?? '');
+    setPickerVisible(true);
+  };
+
+  const handleTimeSelect = (time: string) => {
+    if (pickerDayIndex !== null && pickerField) {
+      const updated = [...timeSlots];
+      if (updated[pickerDayIndex]) {
+        updated[pickerDayIndex][pickerField] = time;
+        setTimeSlots(updated);
+      }
+    }
+  };
+
+  const renderItem2 = ({ item, index }: { item: string; index: number }) => (
     <View
       style={{
-        backgroundColor: 'white', // purple
-        paddingVertical: scaleHeight(10),
-        paddingHorizontal: scaleWidth(20),
+        backgroundColor: 'white',
+        borderRadius: 8,
+        padding: scaleHeight(20),
         marginHorizontal: scaleWidth(5),
-        padding: scaleHeight(16),
-        borderRadius: scaleHeight(10),
-        shadowColor: colors.colorA1A5A72E,
-        shadowOffset: { width: 2, height: 2 },
-        shadowOpacity: 1,
-        shadowRadius: 3.84,
-        elevation: 25,
         marginBottom: scaleHeight(20),
-        alignItems: 'flex-start',
+        shadowColor: '#A1A5A7',
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.18,
+        shadowRadius: 15,
+        elevation: 5,
       }}>
       <Text
         style={{
           color: colors.textColor,
           ...Typography.fontBold,
           ...Typography.textSize16,
-          textAlign: 'center',
+          marginBottom: scaleHeight(8),
         }}>
         {item}
       </Text>
-      <View style={{ height: scaleHeight(15) }} />
-
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flex: 1,
-        }}>
-        <View style={{ flex: 1, alignItems: 'flex-start', width: '100%' }}>
+      <View style={{ flexDirection: 'row', marginBottom: scaleHeight(12) }}>
+        <View style={{ flex: 1, marginRight: scaleWidth(8) }}>
           <AppInput
             title="Start Time"
             rightImage={Images.TIME_ICON}
-            containerStyle={{ width: scaleWidth(90) }}
+            containerStyle={{ width: '100%' }}
             readOnly={true}
             isShowHint={false}
-            value="10:00 AM"
-            titleStyle={{
-              color: colors.color828282,
-              ...Typography.fontRegular,
-              ...Typography.textSize16,
-            }}
+            value={timeSlots[index]?.start ?? ''}
+            titleStyle={{ color: colors.color828282, ...Typography.fontRegular, ...Typography.textSize16 }}
+            onPress={() => handleTimePress(index, 'start')}
           />
         </View>
-        <View style={{ flex: 1, alignItems: 'flex-start', width: '100%' }}>
+        <View style={{ flex: 1, marginLeft: scaleWidth(8) }}>
           <AppInput
             title="End Time"
             rightImage={Images.TIME_ICON}
-            containerStyle={{ width: scaleWidth(90) }}
+            containerStyle={{ width: '100%' }}
             readOnly={true}
             isShowHint={false}
-            value="8:00 PM"
-            titleStyle={{
-              color: colors.color828282,
-              ...Typography.fontRegular,
-              ...Typography.textSize16,
-            }}
+            value={timeSlots[index]?.end ?? ''}
+            titleStyle={{ color: colors.color828282, ...Typography.fontRegular, ...Typography.textSize16 }}
+            onPress={() => handleTimePress(index, 'end')}
           />
         </View>
       </View>
-
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+      <Pressable style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Image
           source={Images.PLUS}
           style={{ width: scaleWidth(20), height: scaleHeight(20), tintColor: colors.buttonColor }}
         />
         <View style={{ width: scaleHeight(5) }} />
-        <Text
-          style={{ ...Typography.fontMedium, ...Typography.textSize14, color: colors.buttonColor }}>
+        <Text style={{ ...Typography.fontMedium, ...Typography.textSize14, color: colors.buttonColor }}>
           Add Break
         </Text>
-      </View>
-      <View style={{ height: scaleHeight(10) }} />
+      </Pressable>
     </View>
   );
 
@@ -136,10 +144,26 @@ const SelectTimeScreen = () => {
             horizontal
             showsHorizontalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={renderItem}
-            contentContainerStyle={{
-              paddingHorizontal: 10,
-            }}
+            renderItem={({ item }) => (
+              <Pressable
+                style={{
+                  backgroundColor: colors.buttonColor, // purple
+                  borderRadius: scaledSize(8),
+                  paddingVertical: scaleHeight(10),
+                  paddingHorizontal: scaleWidth(20),
+                  marginRight: scaleWidth(10),
+                }}>
+                <Text
+                  style={{
+                    color: '#fff',
+                    ...Typography.fontBold,
+                    ...Typography.textSize16,
+                    textAlign: 'center',
+                  }}>
+                  {item}
+                </Text>
+              </Pressable>
+            )}
           />
         </View>
         <View style={{ height: scaleHeight(10) }} />
@@ -154,7 +178,7 @@ const SelectTimeScreen = () => {
             data={daysFull}
             showsHorizontalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={renderItem2}
+            renderItem={({ item, index }) => renderItem2({ item, index })}
           />
         </View>
         <View style={{ height: scaleHeight(10) }} />
@@ -169,6 +193,16 @@ const SelectTimeScreen = () => {
           onPress={() => {
             navigation.navigate(Screen.DASHBOARD);
           }}
+          style={{ marginBottom: scaleHeight(32) }}
+        />
+        <CustomTimePicker
+          visible={pickerVisible}
+          onClose={() => setPickerVisible(false)}
+          onSelect={time => {
+            handleTimeSelect(time);
+            setPickerVisible(false);
+          }}
+          currentValue={pickerValue}
         />
       </View>
     </BaseLayout>

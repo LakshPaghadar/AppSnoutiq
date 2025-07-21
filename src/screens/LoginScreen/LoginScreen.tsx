@@ -62,11 +62,11 @@ const LoginScreen = () => {
                   },
                   selectedTab === 'email'
                     ? {
-                        backgroundColor: colors.buttonColor,
-                      }
+                      backgroundColor: colors.buttonColor,
+                    }
                     : {
-                        backgroundColor: colors.colorFAFAFA,
-                      },
+                      backgroundColor: colors.colorFAFAFA,
+                    },
                 ]}
                 onPress={() => setSelectedTab('email')}>
                 <Text
@@ -75,11 +75,11 @@ const LoginScreen = () => {
                     Typography.textSize14,
                     selectedTab === 'email'
                       ? {
-                          color: colors.colorFFFFFF,
-                        }
+                        color: colors.colorFFFFFF,
+                      }
                       : {
-                          color: colors.color828282,
-                        },
+                        color: colors.color828282,
+                      },
                   ]}>
                   Email
                 </Text>
@@ -95,11 +95,11 @@ const LoginScreen = () => {
                   },
                   selectedTab === 'mobile'
                     ? {
-                        backgroundColor: colors.buttonColor,
-                      }
+                      backgroundColor: colors.buttonColor,
+                    }
                     : {
-                        backgroundColor: colors.colorFAFAFA,
-                      },
+                      backgroundColor: colors.colorFAFAFA,
+                    },
                 ]}
                 onPress={() => setSelectedTab('mobile')}>
                 <Text
@@ -108,11 +108,11 @@ const LoginScreen = () => {
                     Typography.textSize14,
                     selectedTab === 'mobile'
                       ? {
-                          color: colors.colorFFFFFF,
-                        }
+                        color: colors.colorFFFFFF,
+                      }
                       : {
-                          color: colors.color828282,
-                        },
+                        color: colors.color828282,
+                      },
                   ]}>
                   Mobile Number
                 </Text>
@@ -135,7 +135,7 @@ const LoginScreen = () => {
               Forgot Password?
             </Text>
             <View style={{ height: scaleHeight(20) }} />
-            <AppButton title="Sign In" onPress={() => {}} />
+            <AppButton title="Sign In" onPress={() => { }} />
 
             <View
               style={{
@@ -226,6 +226,7 @@ const LoginScreen = () => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginTop: scaleHeight(40),
+                  marginBottom: scaleHeight(32),
                 }}>
                 <Text
                   style={{
