@@ -207,6 +207,7 @@ const SelectRoleScreen = () => {
             navigation.navigate(Screen.LOGIN);
           }}
           buttonColor={colors.color2C9CDB}
+          style={{ marginBottom: scaleHeight(32) }}
         />
       </View>
     </BaseLayout>

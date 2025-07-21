@@ -144,6 +144,7 @@ const SignUpScreen = () => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginTop: scaleHeight(40),
+                  marginBottom: scaleHeight(32),
                 }}>
                 <Text
                   style={{
